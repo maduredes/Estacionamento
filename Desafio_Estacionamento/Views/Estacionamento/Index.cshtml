@@ -1,0 +1,98 @@
+﻿@model IEnumerable<Desafio_Estacionamento.Models.Estacionamento>
+
+@{
+    ViewData["Title"] = "Estacionamento";
+}
+
+
+<img src="~/logo/estacionamento.png" width="200">
+
+<h1>Estacionamento Carro Bem Guardado</h1>
+
+
+<p>
+    <a asp-action="MarcarEntrada" class="btn btn-success">Marcar Entrada</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Placa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HorarioChegada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HorarioSaida)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoraCobrada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Preco)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorPagar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duracao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorarioChegada)
+            </td>
+            @if (Convert.ToString(item.HorarioSaida) != "01-01-0001 00:00:00")
+            {
+            <td>
+                @Html.DisplayFor(modelItem => item.HorarioSaida)
+            </td>
+            }
+            else
+            {
+        <td>
+           -------
+        </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.HoraCobrada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+            <td>
+                R$  @Html.DisplayFor(modelItem => item.ValorPagar) .00
+            </td>
+            @if (Convert.ToString(item.Duracao) != "01-01-0001 00:00:00")
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duracao)
+                </td>
+            }
+            else
+            {
+                <td>
+                    ------
+                </td>
+
+            }
+            @if (Convert.ToString(item.HorarioSaida) == "01-01-0001 00:00:00")
+            {
+            <td>
+                <a asp-action="MarcarSaida" id="teste" style="width:120px; height:40px" asp-route-id="@item.Id" class="btn btn-danger"> Marcar Saída</a>
+
+            </td>
+            }
+        </tr>
+        }
+    </tbody>
+</table>
